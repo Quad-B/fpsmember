@@ -11,6 +11,8 @@ function createWindow () {
   })
 
   win.loadFile('index.html')
+
+  win.removeMenu()
 }
 
 app.commandLine.appendSwitch('disable-site-isolation-trials')
