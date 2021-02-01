@@ -4,7 +4,10 @@
   "description": "FPSMember Windows App",
   "main": "main.js",
   "scripts": {
-    "test": "electron ."
+    "test": "electron .",
+    "postinstall": "electron-builder install-app-deps",
+		"build": "electron-builder --mac --windows --linux",
+		"release": "electron-builder --mac --windows --linux --publish always"
   },
   "keywords": [
     "FPSThailand"
@@ -12,6 +15,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^9.1.0"
+    "electron": "^9.1.0",
+    "electron-builder": "^22.9.1"
   }
 }
