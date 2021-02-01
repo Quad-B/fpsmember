@@ -4,15 +4,19 @@ function createWindow () {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
+    autoHideMenuBar: true,
+    frame: false,
     webPreferences: {
-      nodeIntegration: false,
+      nodeIntegration: true,
       webviewTag: true
     }
   })
 
   win.loadFile('index.html')
 
-  win.removeMenu()
+  win.maximize()
+
+  //win.webContents.openDevTools()
 }
 
 app.commandLine.appendSwitch('disable-site-isolation-trials')

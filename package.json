@@ -16,7 +16,7 @@
       ]
     }
   },
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "FPSMember Windows App",
   "main": "main.js",
   "scripts": {
@@ -33,5 +33,8 @@
   "devDependencies": {
     "electron": "^9.1.0",
     "electron-builder": "^22.9.1"
+  },
+  "dependencies": {
+    "custom-electron-titlebar": "^3.2.6"
   }
 }

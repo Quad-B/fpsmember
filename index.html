@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FPSMember</title>
     <style type="text/css">
-    html, 
-    body {
-        height: 100%;
+    .container-after-titlebar {
+        overflow: hidden !important; /* Hide scrollbars */
+        display: flex !important;
     }
     </style>
 </head>
-<body style="margin: 0px;display: flex;">
+<body style="margin:0px;padding:0px;overflow:hidden;">
     <webview id="fooone" src="https://member.fpsthailand.com/" style="width:80%;height: 100%;"></webview>
     <webview id="footwo" src="https://member.fpsthailand.com/" style="width:20%;height: 100%;"></webview>
 
@@ -21,6 +21,61 @@
             webview.insertCSS('#footer{ display: none !important;}.card.sponsor{ display: none !important;}#gachaArea{ display: none !important;}nav{ display: none !important;}#mainContainer{padding-top: 0px !important;}.card{margin-top: 0px !important;}')
         });
     
+        const { app, remote, ipcRenderer } = require('electron')
+        const { Menu, MenuItem } = remote
+        const customTitlebar = require('custom-electron-titlebar');
+
+        let MyTitleBar = new customTitlebar.Titlebar({
+          backgroundColor: customTitlebar.Color.fromHex('#444'),
+          shadow: true
+          //shadow: true,
+          //icon: 'img/saoxnew.svg'
+        });
+
+        const isMac = process.platform === 'darwin'
+
+        const menu = new Menu();
+
+        menu.append(new MenuItem({
+          label: 'เมนูหลัก',
+          submenu: [
+            {label: 'ปิดโปรแกรม',
+            click: async () => {
+                window.close();
+                }
+            }
+          ]
+        }));
+
+        menu.append(new MenuItem({
+            label: 'ช่วยเหลือ',
+            submenu: [
+                {label: 'ติดตาม เฟสบุ๊ค',
+                click: async () => {
+                    const { shell } = require('electron')
+                    await shell.openExternal('https://www.facebook.com/QuadBCoder/')
+                    }
+                },
+                //{label: 'สนับสนุน',
+                //click: async () => {
+                //    const { shell } = require('electron')
+                //    await shell.openExternal('https://ko-fi.com/boyphongsakorn')
+                //    }
+                //},
+                {type: 'separator'},
+                {label: 'แจ้ง Bug',
+                click: async () => {
+                    const { shell } = require('electron')
+                    await shell.openExternal('https://github.com/boyphongsakorn/fpsmember/issues')
+                    }
+                },
+                {label: 'FPSMember Desktop App เวอร์ชั่น ' + require("electron").remote.app.getVersion()}
+            ]
+        }));
+
+        MyTitleBar.updateMenu(menu);
+
+        MyTitleBar.updateTitle('FPSMember');
     </script>
 </body>
 </html>
