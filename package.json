@@ -1,8 +1,10 @@
 {
   "name": "fpsmember",
   "build": {
-    "appId": "com.yourcompany.yourapp",
-    "productName": "Your App",
+    "appId": "com.boyphongsakorn.fpsmember",
+    "artifactName": "${productName}.${ext}",
+    "copyright": "copyright © 2021 Quad B Software",
+    "productName": "FPSMember",
     "win": {
       "target": [
         "portable"
@@ -14,7 +16,7 @@
       ]
     }
   },
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "FPSMember Windows App",
   "main": "main.js",
   "scripts": {
