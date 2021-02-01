@@ -1,13 +1,27 @@
 {
   "name": "fpsmember",
+  "build": {
+		"appId": "com.yourcompany.yourapp",
+    "productName": "Your App",
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "compression": "maximum",
+      "publisherName": "Quad B Software",
+      "signingHashAlgorithms": [
+        "sha1"
+      ]
+    }
+	},
   "version": "0.0.1",
   "description": "FPSMember Windows App",
   "main": "main.js",
   "scripts": {
     "test": "electron .",
     "postinstall": "electron-builder install-app-deps",
-		"build": "electron-builder --mac --windows --linux",
-		"release": "electron-builder --mac --windows --linux --publish always"
+		"build": "electron-builder --windows",
+		"release": "electron-builder --windows --publish always"
   },
   "keywords": [
     "FPSThailand"
