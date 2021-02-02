@@ -13,9 +13,6 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v1
-      
-      - run: npm install --global --production windows-build-tools
-        if: matrix.os == 'ubuntu-latest'
 
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v1
