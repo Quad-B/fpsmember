@@ -20,8 +20,17 @@
     <script>
 
         const { shell, app, remote, ipcRenderer } = require('electron')
-        const { Menu, MenuItem } = remote
+        const { BrowserWindow, Menu, MenuItem } = remote
         const customTitlebar = require('custom-electron-titlebar');
+        const isMac = process.platform === 'darwin'
+        const menu = new Menu();
+
+        document.getElementById('fooone').addEventListener('new-window', (e) => {
+            const protocol = require('url').parse(e.url).protocol
+            if (protocol === 'http:' || protocol === 'https:') {
+                shell.openExternal(e.url)
+            }
+        })
 
         let bear
 
@@ -97,14 +106,10 @@
           shadow: true
         });
 
-        const isMac = process.platform === 'darwin'
-
-        const menu = new Menu();
-
         menu.append(new MenuItem({
           label: 'เมนูหลัก',
           submenu: [
-            {label: 'เคลียร์การล็อกอิน',
+            {label: 'เปลี่ยนบัญชี Twitch',
             click: async () => {
                 ipcRenderer.send('clearlogin');
                 }
@@ -126,12 +131,6 @@
                     await shell.openExternal('https://www.facebook.com/QuadBCoder/')
                     }
                 },
-                //{label: 'สนับสนุน',
-                //click: async () => {
-                //    const { shell } = require('electron')
-                //    await shell.openExternal('https://ko-fi.com/boyphongsakorn')
-                //    }
-                //},
                 {type: 'separator'},
                 {label: 'แจ้ง Bug',
                 click: async () => {
