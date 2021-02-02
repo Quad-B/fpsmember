@@ -8,7 +8,8 @@ function createWindow () {
     frame: false,
     webPreferences: {
       nodeIntegration: true,
-      webviewTag: true
+      webviewTag: true,
+      enableRemoteModule: true
     }
   })
 
