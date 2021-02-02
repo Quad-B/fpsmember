@@ -88,6 +88,10 @@
             webview.insertCSS('#footer{ display: none !important;}.card.sponsor{ display: none !important;}#gachaArea{ display: none !important;}nav{ display: none !important;}#mainContainer{padding-top: 0px !important;}.card{margin-top: 0px !important;}')
         });
 
+        document.getElementById('fooone').addEventListener('dom-ready', function () {
+            document.getElementById('fooone').insertCSS('.card{ display: none !important;}.card.sponsor{ display: block !important;}')
+        });
+
         let MyTitleBar = new customTitlebar.Titlebar({
           backgroundColor: customTitlebar.Color.fromHex('#444'),
           shadow: true

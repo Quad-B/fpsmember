@@ -1,4 +1,6 @@
 const { app, BrowserWindow, ipcMain, Notification  } = require('electron')
+const Nucleus = require('nucleus-nodejs')
+Nucleus.init('60192024a595e240f55fd03a')
 
 let win;
 let ses;
@@ -23,6 +25,8 @@ function createWindow () {
   //win.webContents.openDevTools()
 
   ses = win.webContents.session
+
+  Nucleus.appStarted()
 }
 
 app.commandLine.appendSwitch('disable-site-isolation-trials')
