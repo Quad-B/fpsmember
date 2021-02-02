@@ -19,23 +19,71 @@ jobs:
         with:
           node-version: 12
 
-      - run: sudo apt-get install --no-install-recommends -y gcc-multilib g++-multilib
+      - run: sudo apt update
         if: matrix.os == 'ubuntu-latest'
       
+      - run: sudo apt install build-essential
+        if: matrix.os == 'ubuntu-latest'
+
+      - run: sudo apt install snapd
+        if: matrix.os == 'ubuntu-latest'
+      
+      - run: sudo snap install --classic snapcraft
+        if: matrix.os == 'ubuntu-latest'
+
+      - run: sudo snap refresh
+        if: matrix.os == 'ubuntu-latest'
+
+      - run: sudo apt-get install --no-install-recommends -y libopenjp2-tools
+        if: matrix.os == 'ubuntu-latest'
+
+      - run: sudo apt-get install --no-install-recommends -y snapcraft
+        if: matrix.os == 'ubuntu-latest'
+
+      - run: sudo apt-get install build-essential clang libdbus-1-dev libgtk-3-dev libnotify-dev libgnome-keyring-dev libgconf2-dev libasound2-dev libcap-dev libcups2-dev libxtst-dev libxss1 libnss3-dev gcc-multilib g++-multilib curl gperf bison python-dbusmock openjdk-8-jre
+        if: matrix.os == 'ubuntu-latest'
+
       - run: sudo dpkg --add-architecture i386
         if: matrix.os == 'ubuntu-latest'
-      
-      - run: wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
-        if: matrix.os == 'ubuntu-latest'
-        
-      - run: sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
-        if: matrix.os == 'ubuntu-latest'
-        
-      - run: sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
+
+      - run: wget -nc https://dl.winehq.org/wine-builds/winehq.key
         if: matrix.os == 'ubuntu-latest'
       
-      - run: sudo apt install --install-recommends winehq-stable
+      - run: sudo apt-key add winehq.key
         if: matrix.os == 'ubuntu-latest'
+
+      - run: sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ xenial main'
+        if: matrix.os == 'ubuntu-latest'
+
+      - run: sudo apt-get update
+        if: matrix.os == 'ubuntu-latest'
+
+      - run: sudo apt-get install -y aptitude
+        if: matrix.os == 'ubuntu-latest'
+
+      - run: sudo aptitude install -y winehq-stable
+        if: matrix.os == 'ubuntu-latest'
+
+      - run: bash <(curl http://getvcn.codenotary.io -L)
+        if: matrix.os == 'ubuntu-latest'
+
+      #- run: sudo apt-get install --no-install-recommends -y gcc-multilib g++-multilib
+      #  if: matrix.os == 'ubuntu-latest'
+      
+      #- run: sudo dpkg --add-architecture i386
+      #  if: matrix.os == 'ubuntu-latest'
+      
+      #- run: wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+      #  if: matrix.os == 'ubuntu-latest'
+        
+      #- run: sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
+      #  if: matrix.os == 'ubuntu-latest'
+        
+      #- run: sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
+      #  if: matrix.os == 'ubuntu-latest'
+      
+      #- run: sudo apt install --install-recommends winehq-stable
+      #  if: matrix.os == 'ubuntu-latest'
 
       - run: npm install electron-builder --save-dev
       
