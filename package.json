@@ -29,8 +29,8 @@
   "scripts": {
     "test": "electron .",
     "postinstall": "electron-builder install-app-deps",
-    "build": "electron-builder --linux --windows",
-    "release": "electron-builder --linux --windows --publish always"
+    "build": "electron-builder --windows",
+    "release": "electron-builder --windows --publish always"
   },
   "keywords": [
     "FPSThailand"
