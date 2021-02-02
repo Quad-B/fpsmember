@@ -19,7 +19,10 @@
 
     <script>
 
-        const { shell } = require('electron')
+        const { shell, app, remote, ipcRenderer } = require('electron')
+        const { Menu, MenuItem } = remote
+        const customTitlebar = require('custom-electron-titlebar');
+
         let bear
 
         var settings = {
@@ -84,10 +87,6 @@
         webview.addEventListener('dom-ready', function () {
             webview.insertCSS('#footer{ display: none !important;}.card.sponsor{ display: none !important;}#gachaArea{ display: none !important;}nav{ display: none !important;}#mainContainer{padding-top: 0px !important;}.card{margin-top: 0px !important;}')
         });
-    
-        const { app, remote, ipcRenderer } = require('electron')
-        const { Menu, MenuItem } = remote
-        const customTitlebar = require('custom-electron-titlebar');
 
         let MyTitleBar = new customTitlebar.Titlebar({
           backgroundColor: customTitlebar.Color.fromHex('#444'),
@@ -103,6 +102,11 @@
         menu.append(new MenuItem({
           label: 'เมนูหลัก',
           submenu: [
+            {label: 'เคลียร์การล็อกอิน',
+            click: async () => {
+                ipcRenderer.send('clearlogin');
+                }
+            },
             {label: 'ปิดโปรแกรม',
             click: async () => {
                 window.close();

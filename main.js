@@ -1,7 +1,10 @@
-const { app, BrowserWindow, Notification } = require('electron')
+const { app, BrowserWindow, ipcMain, Notification  } = require('electron')
+
+let win;
+let ses;
 
 function createWindow () {
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 800,
     height: 600,
     autoHideMenuBar: true,
@@ -18,9 +21,16 @@ function createWindow () {
   win.maximize()
 
   //win.webContents.openDevTools()
+
+  ses = win.webContents.session
 }
 
 app.commandLine.appendSwitch('disable-site-isolation-trials')
+
+ipcMain.on('clearlogin', () => {
+  ses.clearCache()
+  win.reload()
+});
 
 app.whenReady().then(createWindow)
 
