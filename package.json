@@ -21,7 +21,7 @@
   "main": "main.js",
   "scripts": {
     "test": "electron .",
-    "postinstall": "install-app-deps",
+    "postinstall": "electron-builder install-app-deps",
     "build": "electron-builder --windows",
     "release": "electron-builder --windows --publish always"
   },
