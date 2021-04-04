@@ -34,6 +34,7 @@ app.commandLine.appendSwitch('disable-site-isolation-trials')
 
 ipcMain.on('clearlogin', () => {
   ses.clearCache()
+  ses.clearStorageData()
   win.reload()
 });
 
