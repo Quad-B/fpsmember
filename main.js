@@ -14,6 +14,7 @@ function createWindow () {
     webPreferences: {
       nodeIntegration: true,
       webviewTag: true,
+      contextIsolation: false,
       enableRemoteModule: true
     }
   })
