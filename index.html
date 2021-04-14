@@ -90,6 +90,52 @@
                     }
                 }
             });
+            
+            var settings = {
+                "url": "https://api.twitch.tv/helix/streams?user_login=kiroszlol",
+                "method": "GET",
+                "timeout": 0,
+                "headers": {
+                    "Authorization": "Bearer "+bear,
+                    "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
+                },
+            };
+
+            $.ajax(settings).done(function (response) {
+
+                if(response["data"].length != 0){
+                    const myNotification = new Notification('kiroszlol กำลังสตรีม '+response["data"][0]["game_name"], {
+                        body: 'kiroszlol กำลังสตรีมอยู่ใน Twitch'
+                    })
+
+                    myNotification.onclick = () => {
+                        shell.openExternal('https://twitch.tv/kiroszlol')
+                    }
+                }
+            });
+            
+            var settings = {
+                "url": "https://api.twitch.tv/helix/streams?user_login=daren",
+                "method": "GET",
+                "timeout": 0,
+                "headers": {
+                    "Authorization": "Bearer "+bear,
+                    "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
+                },
+            };
+
+            $.ajax(settings).done(function (response) {
+
+                if(response["data"].length != 0){
+                    const myNotification = new Notification('Daren กำลังสตรีม '+response["data"][0]["game_name"], {
+                        body: 'Daren กำลังสตรีมอยู่ใน Twitch'
+                    })
+
+                    myNotification.onclick = () => {
+                        shell.openExternal('https://twitch.tv/daren')
+                    }
+                }
+            });
 
         });
 
