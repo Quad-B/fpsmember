@@ -1,6 +1,28 @@
 const { app, BrowserWindow, ipcMain, Notification  } = require('electron')
 const Nucleus = require('nucleus-nodejs')
 Nucleus.init('60192024a595e240f55fd03a')
+const RPC = require('discord-rpc');
+const rpc = new RPC.Client({
+  transport: "ipc"
+});
+
+rpc.on("ready", () =>{
+  rpc.setActivity({
+    details: "Member.FPSThailand.com",
+    state: "อยู่ใน FPSMember Desktop App",
+    startTimestamp: new Date(),
+    largeImageKey: "fpsmember",
+    largeImageText: "FPSMember",
+    smallImageKey: "fpsmember",
+    smallImageText: "FPSMember"
+  });
+
+  console.log("Rich presence is now active");
+});
+
+rpc.login({
+  clientId: "831886897537482773"
+});
 
 let win;
 let ses;
