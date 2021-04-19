@@ -18,7 +18,7 @@ rpc.on("ready", () =>{
     smallImageText: "FPSMember"
   });
 
-  console.log("Rich presence is now active");
+  //console.log("Rich presence is now active");
 });
 
 rpc.login({
