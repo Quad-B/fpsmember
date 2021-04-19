@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain, Notification  } = require('electron')
 const Nucleus = require('nucleus-nodejs')
 Nucleus.init('60192024a595e240f55fd03a')
+
 const RPC = require('discord-rpc');
 const rpc = new RPC.Client({
   transport: "ipc"
@@ -8,8 +9,8 @@ const rpc = new RPC.Client({
 
 rpc.on("ready", () =>{
   rpc.setActivity({
-    details: "Member.FPSThailand.com",
-    state: "อยู่ใน FPSMember Desktop App",
+    details: "อยู่ใน FPSMember Desktop App",
+    state: "Member.FPSThailand.com",
     startTimestamp: new Date(),
     largeImageKey: "fpsmember",
     largeImageText: "FPSMember",
