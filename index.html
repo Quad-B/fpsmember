@@ -172,10 +172,16 @@
         menu.append(new MenuItem({
             label: 'ช่วยเหลือ',
             submenu: [
-                {label: 'ติดตาม เฟสบุ๊ค',
+                {label: 'เฟสบุ๊ค FPSThailand.com',
                 click: async () => {
                     const { shell } = require('electron')
-                    await shell.openExternal('https://www.facebook.com/QuadBCoder/')
+                    await shell.openExternal('https://www.facebook.com/fpsthailand')
+                    }
+                },
+                {label: 'เฟสบุ๊ค Quad B Coder',
+                click: async () => {
+                    const { shell } = require('electron')
+                    await shell.openExternal('https://www.facebook.com/QuadBCoder')
                     }
                 },
                 {type: 'separator'},
