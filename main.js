@@ -7,7 +7,7 @@ const rpc = new RPC.Client({
   transport: "ipc"
 });
 
-app.commandLine.appendSwitch('js-flags', '--max-old-space-size=512');
+app.commandLine.appendSwitch('js-flags', '--max-old-space-size=1024')
 
 rpc.on("ready", () =>{
   rpc.setActivity({
