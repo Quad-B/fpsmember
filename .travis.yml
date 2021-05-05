@@ -52,4 +52,4 @@ script:
   - dir
   - cd -
   # - zip -r dist.zip dist/
-  # - release-it --config .release-it.json --no-npm.publish --no-git
+  - release-it --config .release-it.json --no-npm.publish --no-git
