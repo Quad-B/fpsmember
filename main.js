@@ -7,8 +7,6 @@ const rpc = new RPC.Client({
   transport: "ipc"
 });
 
-app.commandLine.appendSwitch('js-flags', '--max-old-space-size=1024')
-
 rpc.on("ready", () =>{
   rpc.setActivity({
     details: "อยู่ใน FPSMember Desktop App",
@@ -55,13 +53,14 @@ function createWindow () {
   Nucleus.appStarted()
 }
 
-app.commandLine.appendSwitch('disable-site-isolation-trials')
-
 ipcMain.on('clearlogin', () => {
   ses.clearCache()
   ses.clearStorageData()
   win.reload()
 });
+
+app.commandLine.appendSwitch('js-flags', '--max-old-space-size=1024')
+app.commandLine.appendSwitch('disable-site-isolation-trials')
 
 app.whenReady().then(createWindow)
 
