@@ -7,6 +7,8 @@ const rpc = new RPC.Client({
   transport: "ipc"
 });
 
+app.commandLine.appendSwitch('js-flags', '--max-old-space-size=512');
+
 rpc.on("ready", () =>{
   rpc.setActivity({
     details: "อยู่ใน FPSMember Desktop App",
