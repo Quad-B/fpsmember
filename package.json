@@ -15,7 +15,7 @@
         "sha1"
       ]
     },
-    "publish": {},
+    "publish": null,
     "linux": {
       "target": [
         "AppImage"
