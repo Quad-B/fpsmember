@@ -19,12 +19,12 @@ before_install:
   - sudo apt-get install -y aptitude
   - sudo aptitude install -y winehq-stable
 install:
-  - npm install --global release-it
+  # - npm install --global release-it
   - npm install --global yarn
-  # - npm uninstall electron-builder --save-dev
+  - npm uninstall electron-builder --save-dev
   - yarn global add electron-builder
   # - yarn global add electron-updater
-  - npm install electron-updater --save
+  # - npm install electron-updater --save
 script:
   - npm install
   - npm update
