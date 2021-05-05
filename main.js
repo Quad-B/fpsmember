@@ -60,7 +60,7 @@ ipcMain.on('clearlogin', () => {
 });
 
 app.commandLine.appendSwitch('disable-site-isolation-trials')
-app.commandLine.appendSwitch('js-flags', '--max-old-space-size=1024')
+app.commandLine.appendSwitch('js-flags', '--max-old-space-size=512')
 
 app.whenReady().then(createWindow)
 
