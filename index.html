@@ -142,7 +142,7 @@
         var webview = document.getElementById('footwo');
         webview.addEventListener('dom-ready', function () {
             webview.insertCSS('#footer{ display: none !important;}.card.sponsor{ display: none !important;}#gachaArea{ display: none !important;}nav{ display: none !important;}#mainContainer{padding-top: 0px !important;}.card{margin-top: 0px !important;}')
-        });
+            webview.insertCSS('::-webkit-scrollbar {width: 10px;} ::-webkit-scrollbar-track {  background: #000000; } ::-webkit-scrollbar-thumb {  background: #888; } ::-webkit-scrollbar-thumb:hover {background: #555; }')});
 
         document.getElementById('fooone').addEventListener('dom-ready', function () {
             document.getElementById('fooone').insertCSS('.card{ display: none !important;}.card.sponsor{ display: block !important;}')
