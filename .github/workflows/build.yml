@@ -39,6 +39,8 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
 
       - run: npm install electron-builder --save-dev
+
+      - run: npm install --global electron-builder
       
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
