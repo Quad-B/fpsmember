@@ -16,6 +16,12 @@
         "sha1"
       ]
     },
+    "nsis": {
+      "artifactName": "${productName}-Setup.${ext}",
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false
+    },
     "linux": {
       "target": [
         "AppImage"
