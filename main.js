@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Notification  } = require('electron')
+const { app, BrowserWindow, ipcMain, Notification} = require('electron')
 const {autoUpdater} = require("electron-updater");
 
 const Nucleus = require('nucleus-nodejs')
@@ -19,7 +19,7 @@ rpc.on("ready", () =>{
     smallImageKey: "fpsmember",
     smallImageText: "FPSMember"
   });
-
+autoUpdater.autoInstallOnAppQuit = true;
   //console.log("Rich presence is now active");
 });
 
@@ -48,7 +48,9 @@ function createWindow () {
 
   autoUpdater.autoInstallOnAppQuit = true;
 
-  autoUpdater.checkForUpdates();
+  autoUpdater.checkForUpdatesAndNotify();
+
+  new Notification({ title: 'โปรแกรมมีอัพเดท', body: '<b>test</b>โอ้ว ไม่ต้องตกใจไป เราไม่ปิดโปรแกรมตอนนี้หรอกนะ เมื่อเราพร้อมเมื่อไร ก็จะอัพเดทเองแหละ' }).show()
 
   win.maximize()
 
@@ -66,7 +68,7 @@ ipcMain.on('clearlogin', () => {
 });
 
 function showNotification() {
-  new Notification({ title: 'โปรแกรมมีอัพเดท', body: 'โอ้ว ไม่ต้องตกใจไป เราไม่ปิดโปรแกรมตอนนี้หรอกนะ เมื่อเราพร้อมเมื่อไร ก็จะอัพเดทเองแหละ' }).show()
+  new Notification({ title: 'โปรแกรมมีอัพเดท', body: '<b>test</b>โอ้ว ไม่ต้องตกใจไป เราไม่ปิดโปรแกรมตอนนี้หรอกนะ เมื่อเราพร้อมเมื่อไร ก็จะอัพเดทเองแหละ' }).show()
 }
 
 app.commandLine.appendSwitch('disable-site-isolation-trials')
