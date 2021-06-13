@@ -23,6 +23,7 @@
         const { shell, app, remote, ipcRenderer } = require('electron')
         const { BrowserWindow, Menu, MenuItem } = remote
         const customTitlebar = require('custom-electron-titlebar');
+        const notifier = require('node-notifier');
         const isMac = process.platform === 'darwin'
         const menu = new Menu();
 
@@ -58,13 +59,10 @@
             $.ajax(settings).done(function (response) {
 
                 if(response["data"].length != 0){
-                    const myNotification = new Notification('FPSThailand กำลังสตรีม '+response["data"][0]["game_name"], {
-                        body: 'FPSThailand กำลังสตรีมอยู่ใน Twitch'
-                    })
-
-                    myNotification.onclick = () => {
-                        shell.openExternal('https://twitch.tv/fpsthailand')
-                    }
+                    notifier.notify({
+                        title: 'FPSThailand กำลังสตรีม '+response["data"][0]["game_name"],
+                        message: 'FPSThailand กำลังสตรีมอยู่ใน Twitch'
+                    });
                 }
             });
 
@@ -81,13 +79,10 @@
             $.ajax(settings).done(function (response) {
 
                 if(response["data"].length != 0){
-                    const myNotification = new Notification('boyMinORu กำลังสตรีม '+response["data"][0]["game_name"], {
-                        body: 'boyMinORu กำลังสตรีมอยู่ใน Twitch'
-                    })
-
-                    myNotification.onclick = () => {
-                        shell.openExternal('https://twitch.tv/boyminoru')
-                    }
+                    notifier.notify({
+                        title: 'boyMinORu กำลังสตรีม '+response["data"][0]["game_name"],
+                        message: 'boyMinORu กำลังสตรีมอยู่ใน Twitch'
+                    });
                 }
             });
             
@@ -104,13 +99,10 @@
             $.ajax(settings).done(function (response) {
 
                 if(response["data"].length != 0){
-                    const myNotification = new Notification('kiroszlol กำลังสตรีม '+response["data"][0]["game_name"], {
-                        body: 'kiroszlol กำลังสตรีมอยู่ใน Twitch'
-                    })
-
-                    myNotification.onclick = () => {
-                        shell.openExternal('https://twitch.tv/kiroszlol')
-                    }
+                    notifier.notify({
+                        title: 'kiroszlol กำลังสตรีม '+response["data"][0]["game_name"],
+                        message: 'kiroszlol กำลังสตรีมอยู่ใน Twitch'
+                    });
                 }
             });
             
@@ -127,13 +119,10 @@
             $.ajax(settings).done(function (response) {
 
                 if(response["data"].length != 0){
-                    const myNotification = new Notification('Daren กำลังสตรีม '+response["data"][0]["game_name"], {
-                        body: 'Daren กำลังสตรีมอยู่ใน Twitch'
-                    })
-
-                    myNotification.onclick = () => {
-                        shell.openExternal('https://twitch.tv/daren')
-                    }
+                    notifier.notify({
+                        title: 'Daren กำลังสตรีม '+response["data"][0]["game_name"],
+                        message: 'Daren กำลังสตรีมอยู่ใน Twitch'
+                    });
                 }
             });
 
@@ -174,20 +163,17 @@
             submenu: [
                 {label: 'เฟสบุ๊ค FPSThailand.com',
                 click: async () => {
-                    const { shell } = require('electron')
                     await shell.openExternal('https://www.facebook.com/fpsthailand')
                     }
                 },
                 {label: 'เฟสบุ๊ค Quad B Coder',
                 click: async () => {
-                    const { shell } = require('electron')
                     await shell.openExternal('https://www.facebook.com/QuadBCoder')
                     }
                 },
                 {type: 'separator'},
                 {label: 'แจ้ง Bug',
                 click: async () => {
-                    const { shell } = require('electron')
                     await shell.openExternal('https://github.com/boyphongsakorn/fpsmember/issues')
                     }
                 },
@@ -198,6 +184,23 @@
         MyTitleBar.updateMenu(menu);
 
         MyTitleBar.updateTitle('FPSMember');
+
+        notifier.on('click', function (notifierObject, options, event) {
+            // Triggers if `wait: true` and user clicks notification
+            if(options.m.includes('kiroszlol')){
+                shell.openExternal('https://www.twitch.tv/kiroszlol')
+            }
+            if(options.m.includes('Daren')){
+                shell.openExternal('https://www.twitch.tv/daren')
+            }
+            if(options.m.includes('boyMinORu')){
+                shell.openExternal('https://www.twitch.tv/boyminoru')
+            }
+            if(options.m.includes('FPSThailand')){
+                shell.openExternal('https://www.twitch.tv/fpsthailand')
+            }
+        });
+
     </script>
 </body>
 </html>

@@ -1,5 +1,6 @@
-const { app, BrowserWindow, ipcMain, Notification} = require('electron')
+const { app, BrowserWindow, ipcMain} = require('electron')
 const {autoUpdater} = require("electron-updater");
+const notifier = require('node-notifier');
 
 const Nucleus = require('nucleus-nodejs')
 Nucleus.init('60192024a595e240f55fd03a')
@@ -50,8 +51,6 @@ function createWindow () {
 
   autoUpdater.checkForUpdatesAndNotify();
 
-  new Notification({ title: 'โปรแกรมมีอัพเดท', body: '<b>test</b>โอ้ว ไม่ต้องตกใจไป เราไม่ปิดโปรแกรมตอนนี้หรอกนะ เมื่อเราพร้อมเมื่อไร ก็จะอัพเดทเองแหละ' }).show()
-
   win.maximize()
 
   //win.webContents.openDevTools()
@@ -67,10 +66,6 @@ ipcMain.on('clearlogin', () => {
   win.reload()
 });
 
-function showNotification() {
-  new Notification({ title: 'โปรแกรมมีอัพเดท', body: '<b>test</b>โอ้ว ไม่ต้องตกใจไป เราไม่ปิดโปรแกรมตอนนี้หรอกนะ เมื่อเราพร้อมเมื่อไร ก็จะอัพเดทเองแหละ' }).show()
-}
-
 app.commandLine.appendSwitch('disable-site-isolation-trials')
 app.commandLine.appendSwitch('js-flags', '--max-old-space-size=512')
 
@@ -78,7 +73,10 @@ autoUpdater.on('update-not-available', () => {
 });
 
 autoUpdater.on('update-available', () => {
-  showNotification()
+  notifier.notify({
+    title: 'โปรแกรมมีอัพเดต',
+    message: 'โอ้ว อย่าตกใจไป เราไม่ปิดโปรแกรมคุณตอนนี้หรอกนะ ถ้าเราพร้อมเมื่อไร จะอัพเดตพื้นหลังเองแหละ'
+  });
   autoUpdater.downloadUpdate();
 });
 
