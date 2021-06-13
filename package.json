@@ -1,7 +1,7 @@
 {
   "name": "fpsmember",
   "build": {
-    "appId": "com.boyphongsakorn.fpsmember",
+    "appId": "com.quadb.fpsmember",
     "artifactName": "${productName}.${ext}",
     "copyright": "copyright © 2021 Quad B Software",
     "productName": "FPSMember",
