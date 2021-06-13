@@ -1,6 +1,5 @@
 const { app, BrowserWindow, ipcMain, Notification} = require('electron')
 const {autoUpdater} = require("electron-updater");
-const notifier = require('node-notifier');
 
 const Nucleus = require('nucleus-nodejs')
 Nucleus.init('60192024a595e240f55fd03a')
@@ -73,10 +72,7 @@ autoUpdater.on('update-not-available', () => {
 });
 
 autoUpdater.on('update-available', () => {
-  notifier.notify({
-    title: 'โปรแกรมมีอัพเดต',
-    message: 'โอ้ว อย่าตกใจไป เราไม่ปิดโปรแกรมคุณตอนนี้หรอกนะ ถ้าเราพร้อมเมื่อไร จะอัพเดตพื้นหลังเองแหละ'
-  });
+  new Notification({title: 'โปรแกรมมีอัพเดต',body: 'กำลังทำการอัพเดตในพื้นหลัง'}).show()
   autoUpdater.downloadUpdate();
 });
 
@@ -84,6 +80,7 @@ autoUpdater.on('download-progress', () => {
 });
 
 autoUpdater.on('update-downloaded', () => {
+  new Notification({title: 'อัพเดตเสร็จเรียบร้อย',body: 'เวอร์ชั่นใหม่จะใช้ได้ในการเปิดครั้งต่อไป'}).show()
 });
 
 autoUpdater.on('error', (error) => {

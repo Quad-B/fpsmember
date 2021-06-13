@@ -23,7 +23,6 @@
         const { shell, app, remote, ipcRenderer } = require('electron')
         const { BrowserWindow, Menu, MenuItem } = remote
         const customTitlebar = require('custom-electron-titlebar');
-        const notifier = require('node-notifier');
         const isMac = process.platform === 'darwin'
         const menu = new Menu();
 
@@ -33,110 +32,6 @@
                 shell.openExternal(e.url)
             }
         })
-
-        let bear
-
-        var settings = {
-            "url": "https://id.twitch.tv/oauth2/token?client_id=8xdsc0lj7pqc2o7p2jnmcu1tjbesxm&client_secret=8ejlsfc1sp91uce7ig6sr7q2iblkbm&grant_type=client_credentials",
-            "method": "POST",
-            "timeout": 0
-        };
-
-        $.ajax(settings).done(function (response) {
-
-            bear = response["access_token"]
-
-            var settings = {
-                "url": "https://api.twitch.tv/helix/streams?user_login=fpsthailand",
-                "method": "GET",
-                "timeout": 0,
-                "headers": {
-                    "Authorization": "Bearer "+bear,
-                    "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
-                },
-            };
-
-            $.ajax(settings).done(function (response) {
-
-                if(response["data"].length != 0){
-                    notifier.notify({
-                        title: 'FPSThailand กำลังสตรีม '+response["data"][0]["game_name"],
-                        message: 'FPSThailand กำลังสตรีมอยู่ใน Twitch'
-                    });
-                }
-            });
-
-            var settings = {
-                "url": "https://api.twitch.tv/helix/streams?user_login=boyminoru",
-                "method": "GET",
-                "timeout": 0,
-                "headers": {
-                    "Authorization": "Bearer "+bear,
-                    "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
-                },
-            };
-
-            $.ajax(settings).done(function (response) {
-
-                if(response["data"].length != 0){
-                    notifier.notify({
-                        title: 'boyMinORu กำลังสตรีม '+response["data"][0]["game_name"],
-                        message: 'boyMinORu กำลังสตรีมอยู่ใน Twitch'
-                    });
-                }
-            });
-            
-            var settings = {
-                "url": "https://api.twitch.tv/helix/streams?user_login=kiroszlol",
-                "method": "GET",
-                "timeout": 0,
-                "headers": {
-                    "Authorization": "Bearer "+bear,
-                    "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
-                },
-            };
-
-            $.ajax(settings).done(function (response) {
-
-                if(response["data"].length != 0){
-                    notifier.notify({
-                        title: 'kiroszlol กำลังสตรีม '+response["data"][0]["game_name"],
-                        message: 'kiroszlol กำลังสตรีมอยู่ใน Twitch',
-                        icon: "https://raw.githubusercontent.com/mikaelbr/node-notifier/master/example/coulson.jpg"
-                    });
-                }
-            });
-            
-            var settings = {
-                "url": "https://api.twitch.tv/helix/streams?user_login=daren",
-                "method": "GET",
-                "timeout": 0,
-                "headers": {
-                    "Authorization": "Bearer "+bear,
-                    "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
-                },
-            };
-
-            $.ajax(settings).done(function (response) {
-
-                if(response["data"].length != 0){
-                    notifier.notify({
-                        title: 'Daren กำลังสตรีม '+response["data"][0]["game_name"],
-                        message: 'Daren กำลังสตรีมอยู่ใน Twitch'
-                    });
-                }
-            });
-
-        });
-
-        var webview = document.getElementById('footwo');
-        webview.addEventListener('dom-ready', function () {
-            webview.insertCSS('#footer{ display: none !important;}.card.sponsor{ display: none !important;}#gachaArea{ display: none !important;}nav{ display: none !important;}#mainContainer{padding-top: 0px !important;}.card{margin-top: 0px !important;}')
-            webview.insertCSS('::-webkit-scrollbar {width: 10px;} ::-webkit-scrollbar-track {  background: #000000; } ::-webkit-scrollbar-thumb {  background: #888; } ::-webkit-scrollbar-thumb:hover {background: #555; }')});
-
-        document.getElementById('fooone').addEventListener('dom-ready', function () {
-            document.getElementById('fooone').insertCSS('.card{ display: none !important;}.card.sponsor{ display: block !important;}')
-        });
 
         let MyTitleBar = new customTitlebar.Titlebar({
           backgroundColor: customTitlebar.Color.fromHex('#444'),
@@ -185,6 +80,114 @@
         MyTitleBar.updateMenu(menu);
 
         MyTitleBar.updateTitle('FPSMember');
+
+        let bear
+
+        var settings = {
+            "url": "https://id.twitch.tv/oauth2/token?client_id=8xdsc0lj7pqc2o7p2jnmcu1tjbesxm&client_secret=8ejlsfc1sp91uce7ig6sr7q2iblkbm&grant_type=client_credentials",
+            "method": "POST",
+            "timeout": 0
+        };
+
+        $.ajax(settings).done(function (response) {
+
+            bear = response["access_token"]
+
+            var settings = {
+                "url": "https://api.twitch.tv/helix/streams?user_login=fpsthailand",
+                "method": "GET",
+                "timeout": 0,
+                "headers": {
+                    "Authorization": "Bearer "+bear,
+                    "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
+                },
+            };
+
+            $.ajax(settings).done(function (response) {
+
+                if(response["data"].length != 0){
+                    let myNotification = new Notification('FPSThailand กำลังสตรีม '+response["data"][0]["game_name"],{body: 'FPSThailand กำลังสตรีมอยู่ใน Twitch'})
+
+                    myNotification.onclick = () => {
+                        shell.openExternal('https://www.twitch.tv/'+response["data"][0]["user_login"])
+                    }
+                }
+            });
+
+            var settings = {
+                "url": "https://api.twitch.tv/helix/streams?user_login=boyminoru",
+                "method": "GET",
+                "timeout": 0,
+                "headers": {
+                    "Authorization": "Bearer "+bear,
+                    "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
+                },
+            };
+
+            $.ajax(settings).done(function (response) {
+
+                if(response["data"].length != 0){
+                    let myNotification = new Notification('boyMinORu กำลังสตรีม '+response["data"][0]["game_name"],{body: 'boyMinORu กำลังสตรีมอยู่ใน Twitch'})
+
+                    myNotification.onclick = () => {
+                        shell.openExternal('https://www.twitch.tv/'+response["data"][0]["user_login"])
+                    }
+                }
+            });
+            
+            var settings = {
+                "url": "https://api.twitch.tv/helix/streams?user_login=kiroszlol",
+                "method": "GET",
+                "timeout": 0,
+                "headers": {
+                    "Authorization": "Bearer "+bear,
+                    "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
+                },
+            };
+
+            $.ajax(settings).done(function (response) {
+
+                if(response["data"].length != 0){
+                    let myNotification = new Notification('kiroszlol กำลังสตรีม '+response["data"][0]["game_name"],{body: 'kiroszlol กำลังสตรีมอยู่ใน Twitch'})
+
+                    myNotification.onclick = () => {
+                        shell.openExternal('https://www.twitch.tv/'+response["data"][0]["user_login"])
+                    }
+                }
+            });
+            
+            var settings = {
+                "url": "https://api.twitch.tv/helix/streams?user_login=daren",
+                "method": "GET",
+                "timeout": 0,
+                "headers": {
+                    "Authorization": "Bearer "+bear,
+                    "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
+                },
+            };
+
+            $.ajax(settings).done(function (response) {
+
+                if(response["data"].length != 0){
+                    let myNotification = new Notification('Daren กำลังสตรีม '+response["data"][0]["game_name"],{body: 'Daren กำลังสตรีมอยู่ใน Twitch'})
+
+                    myNotification.onclick = () => {
+                        shell.openExternal('https://www.twitch.tv/'+response["data"][0]["user_login"])
+                    }
+                }
+            });
+
+        });
+
+        var webview = document.getElementById('footwo');
+        webview.addEventListener('dom-ready', function () {
+            webview.insertCSS('#footer{ display: none !important;}.card.sponsor{ display: none !important;}#gachaArea{ display: none !important;}nav{ display: none !important;}#mainContainer{padding-top: 0px !important;}.card{margin-top: 0px !important;background-color: transparent !important;}')
+            webview.insertCSS('::-webkit-scrollbar {width: 10px;} ::-webkit-scrollbar-track {  background: #000000; } ::-webkit-scrollbar-thumb {  background: #888; } ::-webkit-scrollbar-thumb:hover {background: #555; }')
+        });
+
+        document.getElementById('fooone').addEventListener('dom-ready', function () {
+            document.getElementById('fooone').insertCSS('.card{ display: none !important;}.card.sponsor{ display: block !important;}')
+        });
 
         notifier.on('click', function (notifierObject, options, event) {
             // Triggers if `wait: true` and user clicks notification

@@ -8,7 +8,7 @@
     "win": {
       "target": [
         "portable",
-        "nsis-web",
+        "nsis",
         "zip"
       ],
       "compression": "maximum",
@@ -31,7 +31,7 @@
       "compression": "maximum"
     }
   },
-  "version": "1.7.4",
+  "version": "1.7.5",
   "description": "FPSMember Windows App",
   "main": "main.js",
   "scripts": {
@@ -55,7 +55,6 @@
     "custom-electron-titlebar": "^3.2.6",
     "discord-rpc": "^3.2.0",
     "electron-updater": "^4.3.9",
-    "node-notifier": "^10.0.0",
     "nucleus-nodejs": "^3.0.8"
   }
 }
