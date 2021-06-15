@@ -31,7 +31,7 @@
       "compression": "maximum"
     }
   },
-  "version": "1.7.5",
+  "version": "1.7.6",
   "description": "FPSMember Windows App",
   "main": "main.js",
   "scripts": {

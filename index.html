@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FPSMember</title>
     <style type="text/css">
-    .container-after-titlebar {
-        overflow: hidden !important;
-        display: flex !important;
-    }
+        .container-after-titlebar {
+            overflow: hidden !important;
+            display: flex !important;
+        }
     </style>
 </head>
+
 <body style="margin:0px;padding:0px;overflow:hidden;">
     <webview id="fooone" src="https://member.fpsthailand.com/" style="width:75%;height: 100%;"></webview>
     <webview id="footwo" src="https://member.fpsthailand.com/" style="width:25%;height: 100%;"></webview>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        onload="window.$ = window.jQuery = module.exports;"></script>
     <!--script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" onload="window.$ = window.jQuery = module.exports;"></script>
     <script>window.$ = window.jQuery = require('jquery');</script-->
 
@@ -34,54 +37,57 @@
         })
 
         let MyTitleBar = new customTitlebar.Titlebar({
-          backgroundColor: customTitlebar.Color.fromHex('#444'),
-          shadow: true
+            backgroundColor: customTitlebar.Color.fromHex('#444'),
+            shadow: true
         });
 
         menu.append(new MenuItem({
-          label: 'เมนูหลัก',
-          submenu: [
-            {label: 'เปลี่ยนบัญชี Twitch',
-            click: async () => {
-                ipcRenderer.send('clearlogin');
+            label: 'เมนูหลัก',
+            submenu: [
+                {
+                    label: 'เปลี่ยนบัญชี Twitch',
+                    click: async () => {
+                        ipcRenderer.send('clearlogin');
+                    }
+                },
+                {
+                    label: 'ปิดโปรแกรม',
+                    click: async () => {
+                        window.close();
+                    }
                 }
-            },
-            {label: 'ปิดโปรแกรม',
-            click: async () => {
-                window.close();
-                }
-            }
-          ]
+            ]
         }));
 
         menu.append(new MenuItem({
             label: 'ช่วยเหลือ',
             submenu: [
-                {label: 'เฟสบุ๊ค FPSThailand.com',
-                click: async () => {
-                    await shell.openExternal('https://www.facebook.com/fpsthailand')
+                {
+                    label: 'เฟสบุ๊ค FPSThailand.com',
+                    click: async () => {
+                        await shell.openExternal('https://www.facebook.com/fpsthailand')
                     }
                 },
-                {label: 'เฟสบุ๊ค Quad B Coder',
-                click: async () => {
-                    await shell.openExternal('https://www.facebook.com/QuadBCoder')
+                {
+                    label: 'เฟสบุ๊ค Quad B Coder',
+                    click: async () => {
+                        await shell.openExternal('https://www.facebook.com/QuadBCoder')
                     }
                 },
-                {type: 'separator'},
-                {label: 'แจ้ง Bug',
-                click: async () => {
-                    await shell.openExternal('https://github.com/boyphongsakorn/fpsmember/issues')
+                { type: 'separator' },
+                {
+                    label: 'แจ้ง Bug',
+                    click: async () => {
+                        await shell.openExternal('https://github.com/boyphongsakorn/fpsmember/issues')
                     }
                 },
-                {label: 'FPSMember Desktop App เวอร์ชั่น ' + require("electron").remote.app.getVersion()}
+                { label: 'FPSMember Desktop App เวอร์ชั่น ' + remote.app.getVersion() }
             ]
         }));
 
         MyTitleBar.updateMenu(menu);
 
         MyTitleBar.updateTitle('FPSMember');
-
-        let bear
 
         var settings = {
             "url": "https://id.twitch.tv/oauth2/token?client_id=8xdsc0lj7pqc2o7p2jnmcu1tjbesxm&client_secret=8ejlsfc1sp91uce7ig6sr7q2iblkbm&grant_type=client_credentials",
@@ -91,90 +97,38 @@
 
         $.ajax(settings).done(function (response) {
 
-            bear = response["access_token"]
+            const bear = response["access_token"]
 
             var settings = {
-                "url": "https://api.twitch.tv/helix/streams?user_login=fpsthailand",
+                "url": "https://api.twitch.tv/helix/streams?user_login=fpsthailand&user_login=boyminoru&user_login=kiroszlol&user_login=daren",
                 "method": "GET",
                 "timeout": 0,
                 "headers": {
-                    "Authorization": "Bearer "+bear,
+                    "Authorization": "Bearer " + bear,
                     "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
                 },
             };
 
             $.ajax(settings).done(function (response) {
+                response["data"].forEach(element => {
+                    var settings = {
+                        "url": "https://api.twitch.tv/helix/users?login="+element["user_login"],
+                        "method": "GET",
+                        "timeout": 0,
+                        "headers": {
+                            "Authorization": "Bearer " + bear,
+                            "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
+                        },
+                    };
 
-                if(response["data"].length != 0){
-                    let myNotification = new Notification('FPSThailand กำลังสตรีม '+response["data"][0]["game_name"],{body: 'FPSThailand กำลังสตรีมอยู่ใน Twitch'})
+                    $.ajax(settings).done(function (response) {
+                        let myNotification = new Notification(response["data"][0]["display_name"]+' กำลังสตรีม ' + element["game_name"], { body: response["data"][0]["display_name"]+' กำลังสตรีมอยู่ใน Twitch', icon: response["data"][0]["profile_image_url"] })
 
-                    myNotification.onclick = () => {
-                        shell.openExternal('https://www.twitch.tv/'+response["data"][0]["user_login"])
-                    }
-                }
-            });
-
-            var settings = {
-                "url": "https://api.twitch.tv/helix/streams?user_login=boyminoru",
-                "method": "GET",
-                "timeout": 0,
-                "headers": {
-                    "Authorization": "Bearer "+bear,
-                    "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
-                },
-            };
-
-            $.ajax(settings).done(function (response) {
-
-                if(response["data"].length != 0){
-                    let myNotification = new Notification('boyMinORu กำลังสตรีม '+response["data"][0]["game_name"],{body: 'boyMinORu กำลังสตรีมอยู่ใน Twitch'})
-
-                    myNotification.onclick = () => {
-                        shell.openExternal('https://www.twitch.tv/'+response["data"][0]["user_login"])
-                    }
-                }
-            });
-            
-            var settings = {
-                "url": "https://api.twitch.tv/helix/streams?user_login=kiroszlol",
-                "method": "GET",
-                "timeout": 0,
-                "headers": {
-                    "Authorization": "Bearer "+bear,
-                    "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
-                },
-            };
-
-            $.ajax(settings).done(function (response) {
-
-                if(response["data"].length != 0){
-                    let myNotification = new Notification('kiroszlol กำลังสตรีม '+response["data"][0]["game_name"],{body: 'kiroszlol กำลังสตรีมอยู่ใน Twitch'})
-
-                    myNotification.onclick = () => {
-                        shell.openExternal('https://www.twitch.tv/'+response["data"][0]["user_login"])
-                    }
-                }
-            });
-            
-            var settings = {
-                "url": "https://api.twitch.tv/helix/streams?user_login=daren",
-                "method": "GET",
-                "timeout": 0,
-                "headers": {
-                    "Authorization": "Bearer "+bear,
-                    "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
-                },
-            };
-
-            $.ajax(settings).done(function (response) {
-
-                if(response["data"].length != 0){
-                    let myNotification = new Notification('Daren กำลังสตรีม '+response["data"][0]["game_name"],{body: 'Daren กำลังสตรีมอยู่ใน Twitch'})
-
-                    myNotification.onclick = () => {
-                        shell.openExternal('https://www.twitch.tv/'+response["data"][0]["user_login"])
-                    }
-                }
+                        myNotification.onclick = () => {
+                            shell.openExternal('https://www.twitch.tv/' + element["user_login"])
+                        }
+                    })
+                });
             });
 
         });
@@ -189,22 +143,7 @@
             document.getElementById('fooone').insertCSS('.card{ display: none !important;}.card.sponsor{ display: block !important;}')
         });
 
-        notifier.on('click', function (notifierObject, options, event) {
-            // Triggers if `wait: true` and user clicks notification
-            if(options.m.includes('kiroszlol')){
-                shell.openExternal('https://www.twitch.tv/kiroszlol')
-            }
-            if(options.m.includes('Daren')){
-                shell.openExternal('https://www.twitch.tv/daren')
-            }
-            if(options.m.includes('boyMinORu')){
-                shell.openExternal('https://www.twitch.tv/boyminoru')
-            }
-            if(options.m.includes('FPSThailand')){
-                shell.openExternal('https://www.twitch.tv/fpsthailand')
-            }
-        });
-
     </script>
 </body>
+
 </html>
