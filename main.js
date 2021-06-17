@@ -4,13 +4,13 @@ const {autoUpdater} = require("electron-updater");
 const Nucleus = require('nucleus-nodejs')
 Nucleus.init('60192024a595e240f55fd03a')
 
-const RPC = require('discord-rpc');
+/*const RPC = require('discord-rpc');
 const rpc = new RPC.Client({
   transport: "ipc"
 });
 
 rpc.on("ready", () =>{
-  rpc.setActivity({
+  /*rpc.setActivity({
     details: "อยู่ใน FPSMember Desktop App",
     state: "Member.FPSThailand.com",
     startTimestamp: new Date(),
@@ -18,14 +18,14 @@ rpc.on("ready", () =>{
     largeImageText: "FPSMember",
     smallImageKey: "fpsmember",
     smallImageText: "FPSMember"
-  });
-autoUpdater.autoInstallOnAppQuit = true;
+  });*/
+  //autoUpdater.autoInstallOnAppQuit = true;
   //console.log("Rich presence is now active");
-});
+/*});
 
 rpc.login({
   clientId: "831886897537482773"
-});
+});*/
 
 let win;
 let ses;
@@ -64,7 +64,7 @@ function createWindow () {
     }
   );
 
-  win.webContents.openDevTools()
+  //win.webContents.openDevTools()
 
   ses = win.webContents.session
 

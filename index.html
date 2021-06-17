@@ -19,8 +19,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
         onload="window.$ = window.jQuery = module.exports;"></script>
-    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" onload="window.$ = window.jQuery = module.exports;"></script>
-    <script>window.$ = window.jQuery = require('jquery');</script-->
 
     <script>
         const { shell, app, remote, ipcRenderer } = require('electron')
@@ -28,6 +26,26 @@
         const customTitlebar = require('custom-electron-titlebar');
         const isMac = process.platform === 'darwin'
         const menu = new Menu();
+        const RPC = require('discord-rpc');
+        const rpc = new RPC.Client({
+            transport: "ipc"
+        });
+
+        rpc.on("ready", () => {
+            rpc.setActivity({
+                details: "อยู่ใน FPSMember Desktop App",
+                state: "Member.FPSThailand.com",
+                startTimestamp: new Date(),
+                largeImageKey: "fpsmember",
+                largeImageText: "FPSMember",
+                smallImageKey: "fpsmember",
+                smallImageText: "FPSMember"
+            });
+        });
+
+        rpc.login({
+            clientId: "831886897537482773"
+        });
 
         /*document.getElementById('fooone').addEventListener('new-window', (e) => {
             const protocol = require('url').parse(e.url).protocol
@@ -133,27 +151,97 @@
 
         });
 
-        
 
-        document.getElementById("fooone").onload = function() {
+
+        document.getElementById("fooone").onload = function () {
             var frm = frames['fooone'].contentWindow.document;
-        var otherhead = frm.getElementsByTagName("head")[0];
-        var link = frm.createElement("link");
-        link.setAttribute("rel", "stylesheet");
-        link.setAttribute("type", "text/css");
-        link.setAttribute("href", "https://pwisetthon.com/fpsmemone.css");
-        otherhead.appendChild(link);
+            var otherhead = frm.getElementsByTagName("head")[0];
+            var link = frm.createElement("link");
+            link.setAttribute("rel", "stylesheet");
+            link.setAttribute("type", "text/css");
+            link.setAttribute("href", "https://pwisetthon.com/fpsmemone.css");
+            otherhead.appendChild(link);
         };
 
-        document.getElementById("footwo").onload = function() {
+        document.getElementById("footwo").onload = function () {
             var frm = frames['footwo'].contentWindow.document;
-        var otherhead = frm.getElementsByTagName("head")[0];
-        var link = frm.createElement("link");
-        link.setAttribute("rel", "stylesheet");
-        link.setAttribute("type", "text/css");
-        link.setAttribute("href", "https://pwisetthon.com/fpsmemtwo.css");
-        otherhead.appendChild(link);
+            var otherhead = frm.getElementsByTagName("head")[0];
+            var link = frm.createElement("link");
+            link.setAttribute("rel", "stylesheet");
+            link.setAttribute("type", "text/css");
+            link.setAttribute("href", "https://pwisetthon.com/fpsmemtwo.css");
+            otherhead.appendChild(link);
         };
+
+        let lastch
+        $('#fooone').on("load", function () {
+            $(this).contents().on("contextmenu, keydown, mousedown, mouseup, click", function (e) {
+                try {
+                    if (frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data') == '38539112' && lastch != frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data')) {
+                        rpc.clearActivity()
+                        rpc.setActivity({
+                            details: "กำลังดูของ FPSThailand",
+                            state: "Member.FPSThailand.com",
+                            startTimestamp: new Date(),
+                            largeImageKey: "fpsmember",
+                            largeImageText: "FPSMember",
+                            smallImageKey: "fpsmember",
+                            smallImageText: "FPSMember"
+                        });
+                        lastch = '38539112'
+                    } else if (frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data') == '118336478' && lastch != frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data')) {
+                        rpc.clearActivity()
+                        rpc.setActivity({
+                            details: "กำลังดูของ boyMinORu",
+                            state: "Member.FPSThailand.com",
+                            startTimestamp: new Date(),
+                            largeImageKey: "fpsmember",
+                            largeImageText: "FPSMember",
+                            smallImageKey: "fpsmember",
+                            smallImageText: "FPSMember"
+                        });
+                        lastch = '118336478'
+                    } else if (frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data') == '39646254' && lastch != frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data')) {
+                        rpc.clearActivity()
+                        rpc.setActivity({
+                            details: "กำลังดูของ kiroszlol",
+                            state: "Member.FPSThailand.com",
+                            startTimestamp: new Date(),
+                            largeImageKey: "fpsmember",
+                            largeImageText: "FPSMember",
+                            smallImageKey: "fpsmember",
+                            smallImageText: "FPSMember"
+                        });
+                        lastch = '39646254'
+                    } else if (frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data') == '142179218' && lastch != frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data')) {
+                        rpc.clearActivity()
+                        rpc.setActivity({
+                            details: "กำลังดูของ Daren",
+                            state: "Member.FPSThailand.com",
+                            startTimestamp: new Date(),
+                            largeImageKey: "fpsmember",
+                            largeImageText: "FPSMember",
+                            smallImageKey: "fpsmember",
+                            smallImageText: "FPSMember"
+                        });
+                        lastch = '142179218'
+                    }
+                }
+                catch (err) {
+                    rpc.clearActivity()
+                    rpc.setActivity({
+                        details: "อยู่ใน FPSMember Desktop App",
+                        state: "Member.FPSThailand.com",
+                        startTimestamp: new Date(),
+                        largeImageKey: "fpsmember",
+                        largeImageText: "FPSMember",
+                        smallImageKey: "fpsmember",
+                        smallImageText: "FPSMember"
+                    });
+                }
+            });
+
+        });
 
         /*var webview = document.getElementById('footwo');
         webview.addEventListener('dom-ready', function () {
