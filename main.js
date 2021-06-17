@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Notification} = require('electron')
+const { app, BrowserWindow, session, ipcMain, Notification} = require('electron')
 const {autoUpdater} = require("electron-updater");
 
 const Nucleus = require('nucleus-nodejs')
@@ -52,7 +52,19 @@ function createWindow () {
 
   win.maximize()
 
-  //win.webContents.openDevTools()
+  win.webContents.session.webRequest.onHeadersReceived({ urls: [ "*://*/*" ] },
+    (d, c)=>{
+      if(d.responseHeaders['X-Frame-Options']){
+        delete d.responseHeaders['X-Frame-Options'];
+      } else if(d.responseHeaders['x-frame-options']) {
+        delete d.responseHeaders['x-frame-options'];
+      }
+
+      c({cancel: false, responseHeaders: d.responseHeaders});
+    }
+  );
+
+  win.webContents.openDevTools()
 
   ses = win.webContents.session
 
