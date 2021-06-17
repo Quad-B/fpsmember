@@ -107,8 +107,10 @@
 
         MyTitleBar.updateTitle('FPSMember');
 
+        const clientid = '8xdsc0lj7pqc2o7p2jnmcu1tjbesxm'
+
         var settings = {
-            "url": "https://id.twitch.tv/oauth2/token?client_id=8xdsc0lj7pqc2o7p2jnmcu1tjbesxm&client_secret=8ejlsfc1sp91uce7ig6sr7q2iblkbm&grant_type=client_credentials",
+            "url": "https://id.twitch.tv/oauth2/token?client_id="+clientid+"&client_secret=8ejlsfc1sp91uce7ig6sr7q2iblkbm&grant_type=client_credentials",
             "method": "POST",
             "timeout": 0
         };
@@ -123,7 +125,7 @@
                 "timeout": 0,
                 "headers": {
                     "Authorization": "Bearer " + bear,
-                    "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
+                    "Client-Id": clientid
                 },
             };
 
@@ -135,7 +137,7 @@
                         "timeout": 0,
                         "headers": {
                             "Authorization": "Bearer " + bear,
-                            "Client-Id": "8xdsc0lj7pqc2o7p2jnmcu1tjbesxm"
+                            "Client-Id": clientid
                         },
                     };
 
