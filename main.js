@@ -34,8 +34,9 @@ function createWindow () {
   win = new BrowserWindow({
     width: 800,
     height: 600,
-    autoHideMenuBar: true,
-    frame: false,
+    //autoHideMenuBar: true,
+    autoHideMenuBar: false,
+    frame: true,
     webPreferences: {
       nodeIntegration: true,
       webviewTag: true,
@@ -64,7 +65,7 @@ function createWindow () {
     }
   );
 
-  // win.webContents.openDevTools()
+  //win.webContents.openDevTools()
 
   ses = win.webContents.session
 

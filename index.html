@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FPSMember</title>
     <style type="text/css">
-        .container-after-titlebar {
+        /*.container-after-titlebar {
             overflow: hidden !important;
             display: flex !important;
+        }*/
+        html,body{
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
 
 <body style="margin:0px;padding:0px;overflow:hidden;">
-    <iframe id="fooone" src="https://member.fpsthailand.com/" frameborder="0" style="width:75%;height: 100%;"></iframe>
+    <iframe id="fooone" src="https://member.fpsthailand.com/" frameborder="0" style="width:75%;height: 100%;float: left;"></iframe>
     <iframe id="footwo" src="https://member.fpsthailand.com/" frameborder="0" style="width:25%;height: 100%;"></iframe>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
@@ -23,29 +26,42 @@
     <script>
         const { shell, app, remote, ipcRenderer } = require('electron')
         const { BrowserWindow, Menu, MenuItem } = remote
-        const customTitlebar = require('custom-electron-titlebar');
+        //const customTitlebar = require('custom-electron-titlebar');
         const isMac = process.platform === 'darwin'
         const menu = new Menu();
         const RPC = require('discord-rpc');
+        let discordstatus
         const rpc = new RPC.Client({
             transport: "ipc"
         });
 
-        rpc.on("ready", () => {
-            rpc.setActivity({
-                details: "อยู่ใน FPSMember Desktop App",
-                state: "Member.FPSThailand.com",
-                startTimestamp: new Date(),
-                largeImageKey: "fpsmember",
-                largeImageText: "FPSMember",
-                smallImageKey: "fpsmember",
-                smallImageText: "FPSMember"
-            });
-        });
+        
+        //if(discordstatus == true){
 
-        rpc.login({
-            clientId: "831886897537482773"
-        });
+            try {
+                rpc.on("ready", () => {
+                    rpc.setActivity({
+                        details: "อยู่ใน FPSMember Desktop App",
+                        state: "Member.FPSThailand.com",
+                        startTimestamp: new Date(),
+                        largeImageKey: "fpsmember",
+                        largeImageText: "FPSMember",
+                        smallImageKey: "fpsmember",
+                        smallImageText: "FPSMember"
+                    });
+                });
+
+                rpc.login({
+                    clientId: "831886897537482773"
+                });
+                discordstatus = true
+            } catch (error) {
+                discordstatus = false
+            }
+            console.log(discordstatus)
+            
+        //}
+        
 
         /*document.getElementById('fooone').addEventListener('new-window', (e) => {
             const protocol = require('url').parse(e.url).protocol
@@ -54,10 +70,10 @@
             }
         })*/
 
-        let MyTitleBar = new customTitlebar.Titlebar({
+        /*let MyTitleBar = new customTitlebar.Titlebar({
             backgroundColor: customTitlebar.Color.fromHex('#444'),
             shadow: true
-        });
+        });*/
 
         menu.append(new MenuItem({
             label: 'เมนูหลัก',
@@ -103,9 +119,11 @@
             ]
         }));
 
-        MyTitleBar.updateMenu(menu);
+        /*MyTitleBar.updateMenu(menu);
 
-        MyTitleBar.updateTitle('FPSMember');
+        MyTitleBar.updateTitle('FPSMember');*/
+
+        Menu.setApplicationMenu(menu);
 
         const clientid = '8xdsc0lj7pqc2o7p2jnmcu1tjbesxm'
 
@@ -153,8 +171,6 @@
 
         });
 
-
-
         document.getElementById("fooone").onload = function () {
             var frm = frames['fooone'].contentWindow.document;
             var otherhead = frm.getElementsByTagName("head")[0];
@@ -178,11 +194,61 @@
         let lastch
         $('#fooone').on("load", function () {
             $(this).contents().on("contextmenu, keydown, mousedown, mouseup, click", function (e) {
-                try {
-                    if (frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data') == '38539112' && lastch != frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data')) {
+                if(discordstatus == true){
+                    try {
+                        if (frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data') == '38539112' && lastch != frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data')) {
+                            rpc.clearActivity()
+                            rpc.setActivity({
+                                details: "กำลังดูของ FPSThailand",
+                                state: "Member.FPSThailand.com",
+                                startTimestamp: new Date(),
+                                largeImageKey: "fpsmember",
+                                largeImageText: "FPSMember",
+                                smallImageKey: "fpsmember",
+                                smallImageText: "FPSMember"
+                            });
+                            lastch = '38539112'
+                        } else if (frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data') == '118336478' && lastch != frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data')) {
+                            rpc.clearActivity()
+                            rpc.setActivity({
+                                details: "กำลังดูของ boyMinORu",
+                                state: "Member.FPSThailand.com",
+                                startTimestamp: new Date(),
+                                largeImageKey: "fpsmember",
+                                largeImageText: "FPSMember",
+                                smallImageKey: "fpsmember",
+                                smallImageText: "FPSMember"
+                            });
+                            lastch = '118336478'
+                        } else if (frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data') == '39646254' && lastch != frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data')) {
+                            rpc.clearActivity()
+                            rpc.setActivity({
+                                details: "กำลังดูของ kiroszlol",
+                                state: "Member.FPSThailand.com",
+                                startTimestamp: new Date(),
+                                largeImageKey: "fpsmember",
+                                largeImageText: "FPSMember",
+                                smallImageKey: "fpsmember",
+                                smallImageText: "FPSMember"
+                            });
+                            lastch = '39646254'
+                        } else if (frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data') == '142179218' && lastch != frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data')) {
+                            rpc.clearActivity()
+                            rpc.setActivity({
+                                details: "กำลังดูของ Daren",
+                                state: "Member.FPSThailand.com",
+                                startTimestamp: new Date(),
+                                largeImageKey: "fpsmember",
+                                largeImageText: "FPSMember",
+                                smallImageKey: "fpsmember",
+                                smallImageText: "FPSMember"
+                            });
+                            lastch = '142179218'
+                        }
+                    }catch (err) {
                         rpc.clearActivity()
                         rpc.setActivity({
-                            details: "กำลังดูของ FPSThailand",
+                            details: "อยู่ใน FPSMember Desktop App",
                             state: "Member.FPSThailand.com",
                             startTimestamp: new Date(),
                             largeImageKey: "fpsmember",
@@ -190,56 +256,7 @@
                             smallImageKey: "fpsmember",
                             smallImageText: "FPSMember"
                         });
-                        lastch = '38539112'
-                    } else if (frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data') == '118336478' && lastch != frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data')) {
-                        rpc.clearActivity()
-                        rpc.setActivity({
-                            details: "กำลังดูของ boyMinORu",
-                            state: "Member.FPSThailand.com",
-                            startTimestamp: new Date(),
-                            largeImageKey: "fpsmember",
-                            largeImageText: "FPSMember",
-                            smallImageKey: "fpsmember",
-                            smallImageText: "FPSMember"
-                        });
-                        lastch = '118336478'
-                    } else if (frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data') == '39646254' && lastch != frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data')) {
-                        rpc.clearActivity()
-                        rpc.setActivity({
-                            details: "กำลังดูของ kiroszlol",
-                            state: "Member.FPSThailand.com",
-                            startTimestamp: new Date(),
-                            largeImageKey: "fpsmember",
-                            largeImageText: "FPSMember",
-                            smallImageKey: "fpsmember",
-                            smallImageText: "FPSMember"
-                        });
-                        lastch = '39646254'
-                    } else if (frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data') == '142179218' && lastch != frames['fooone'].contentWindow.document.getElementsByClassName("item jump")[0].getAttribute('data')) {
-                        rpc.clearActivity()
-                        rpc.setActivity({
-                            details: "กำลังดูของ Daren",
-                            state: "Member.FPSThailand.com",
-                            startTimestamp: new Date(),
-                            largeImageKey: "fpsmember",
-                            largeImageText: "FPSMember",
-                            smallImageKey: "fpsmember",
-                            smallImageText: "FPSMember"
-                        });
-                        lastch = '142179218'
                     }
-                }
-                catch (err) {
-                    rpc.clearActivity()
-                    rpc.setActivity({
-                        details: "อยู่ใน FPSMember Desktop App",
-                        state: "Member.FPSThailand.com",
-                        startTimestamp: new Date(),
-                        largeImageKey: "fpsmember",
-                        largeImageText: "FPSMember",
-                        smallImageKey: "fpsmember",
-                        smallImageText: "FPSMember"
-                    });
                 }
             });
 

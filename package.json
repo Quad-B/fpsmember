@@ -32,7 +32,7 @@
       "compression": "maximum"
     }
   },
-  "version": "1.7.6",
+  "version": "1.8.0",
   "description": "FPSMember Windows App",
   "main": "main.js",
   "scripts": {
@@ -49,11 +49,10 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^12.0.6",
+    "electron": "^13.1.6",
     "electron-builder": "^22.11.1"
   },
   "dependencies": {
-    "custom-electron-titlebar": "^3.2.6",
     "discord-rpc": "^3.2.0",
     "electron-updater": "^4.3.9",
     "nucleus-nodejs": "^3.0.8"
