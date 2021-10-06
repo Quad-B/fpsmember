@@ -32,7 +32,7 @@
       "compression": "maximum"
     }
   },
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "FPSMember Windows App",
   "main": "main.js",
   "scripts": {
@@ -49,7 +49,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^13.1.6",
+    "electron": "^13.5.1",
     "electron-builder": "^22.11.1"
   },
   "dependencies": {
