@@ -24,8 +24,11 @@
         onload="window.$ = window.jQuery = module.exports;"></script>
 
     <script>
-        const { shell, app, remote, ipcRenderer } = require('electron')
-        const { BrowserWindow, Menu, MenuItem } = remote
+        const { shell, app, ipcRenderer } = require('electron')
+        const { BrowserWindow, Menu, MenuItem } = require('@electron/remote')
+
+        //require('@electron/remote/main').initialize()
+
         //const customTitlebar = require('custom-electron-titlebar');
         const isMac = process.platform === 'darwin'
         const menu = new Menu();
@@ -115,7 +118,7 @@
                         await shell.openExternal('https://github.com/boyphongsakorn/fpsmember/issues')
                     }
                 },
-                { label: 'FPSMember Desktop App เวอร์ชั่น ' + remote.app.getVersion() }
+                { label: 'FPSMember Desktop App เวอร์ชั่น ' + require('@electron/remote').app.getVersion() }
             ]
         }));
 

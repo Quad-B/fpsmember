@@ -1,6 +1,8 @@
 const { app, BrowserWindow, session, ipcMain, Notification} = require('electron')
 const {autoUpdater} = require("electron-updater");
 
+require('@electron/remote/main').initialize()
+
 const Nucleus = require('nucleus-nodejs')
 Nucleus.init('60192024a595e240f55fd03a')
 
@@ -66,6 +68,8 @@ function createWindow () {
   );
 
   //win.webContents.openDevTools()
+
+  require("@electron/remote/main").enable(win.webContents)
 
   ses = win.webContents.session
 
